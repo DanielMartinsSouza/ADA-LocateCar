@@ -1,4 +1,4 @@
-package Person;
+package person;
 
 public class PhysicalPerson extends Person{
     private String sobrenome;

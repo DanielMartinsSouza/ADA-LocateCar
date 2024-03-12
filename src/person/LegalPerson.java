@@ -1,4 +1,4 @@
-package Person;
+package person;
 
 public class LegalPerson extends Person{
     private String razaoSocial;
