@@ -1,9 +1,9 @@
 package Person;
 
-public class FisicalPerson extends Person{
+public class PhysicalPerson extends Person{
     private String sobrenome;
 
-    public FisicalPerson(String documento, String nome, String sobrenome) {
+    public PhysicalPerson(String documento, String nome, String sobrenome) {
         super(documento, nome);
         this.sobrenome = sobrenome;
     }
