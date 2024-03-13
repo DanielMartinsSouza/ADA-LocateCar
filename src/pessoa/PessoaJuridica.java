@@ -3,16 +3,18 @@ package pessoa;
 public class PessoaJuridica extends Pessoa {
     private String razaoSocial;
 
-    public PessoaJuridica(String documento, String nome, String razaoSocial) {
-        super(documento, nome);
+    public PessoaJuridica(String documento, String razaoSocial) {
+        super(documento);
         this.razaoSocial = razaoSocial;
     }
 
-    public String getRazaoSocial() {
+    @Override
+    public String getNome() {
         return razaoSocial;
     }
 
-    public void setRazaoSocial(String razaoSocial) {
+    @Override
+    public void setNome(String razaoSocial) {
         this.razaoSocial = razaoSocial;
     }
 }

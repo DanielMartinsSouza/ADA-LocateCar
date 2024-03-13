@@ -1,12 +1,12 @@
 package pessoa;
 
+import java.util.Objects;
+
 public abstract class Pessoa {
     private String documento;
-    private String nome;
 
-    public Pessoa(String documento, String nome) {
+    public Pessoa(String documento) {
         this.documento = documento;
-        this.nome = nome;
     }
 
     public String getDocumento() {
@@ -17,11 +17,15 @@ public abstract class Pessoa {
         this.documento = documento;
     }
 
-    public String getNome() {
-        return nome;
-    }
+    public abstract String getNome();
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public abstract void setNome(String nome);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(documento, pessoa.documento);
     }
 }

@@ -1,18 +1,20 @@
 package pessoa;
 
 public class PessoaFisica extends Pessoa {
-    private String sobrenome;
+    private String nomeSobrenome;
 
-    public PessoaFisica(String documento, String nome, String sobrenome) {
-        super(documento, nome);
-        this.sobrenome = sobrenome;
+    public PessoaFisica(String documento, String nomeSobrenome) {
+        super(documento);
+        this.nomeSobrenome = nomeSobrenome;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
+    @Override
+    public String getNome() {
+        return nomeSobrenome;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    @Override
+    public void setNome(String nomeSobrenome) {
+        this.nomeSobrenome = nomeSobrenome;
     }
 }
