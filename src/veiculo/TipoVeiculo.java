@@ -1,13 +1,13 @@
-package vehicle;
+package veiculo;
 
-public enum VehicleType {
-    PEQUENO(25),
-    MEDIO(50),
-    SUV(100);
+public enum TipoVeiculo {
+    PEQUENO(100),
+    MEDIO(150),
+    SUV(200);
 
     private double taxaDiaria;
 
-    VehicleType(double taxaDiaria) {
+    TipoVeiculo(double taxaDiaria) {
         this.taxaDiaria = taxaDiaria;
     }
 

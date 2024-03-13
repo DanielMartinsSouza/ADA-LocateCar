@@ -1,10 +1,10 @@
-package person;
+package pessoa;
 
-public abstract class Person {
+public abstract class Pessoa {
     private String documento;
     private String nome;
 
-    public Person(String documento, String nome) {
+    public Pessoa(String documento, String nome) {
         this.documento = documento;
         this.nome = nome;
     }
