@@ -7,6 +7,8 @@ import veiculo.Veiculo;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.BusinessException;
+
 public class GerenciadorVeiculo {
     private List<Veiculo> veiculos;
 
@@ -17,11 +19,9 @@ public class GerenciadorVeiculo {
     public void cadastrarVeiculo(Veiculo novoVeiculo) {
         for (Veiculo veiculo : veiculos) {
             if (veiculo.getPlaca().equals(novoVeiculo.getPlaca())) {
-                System.out.println("Esse veículo já está cadastrado.");
-                return;
+                throw new BusinessException("Esse veículo já está cadastrado.");
             }
         }
-
         veiculos.add(novoVeiculo);
     }
 
@@ -83,5 +83,11 @@ public class GerenciadorVeiculo {
                 veiculo.setStatus(status);
             }
         }
+    }
+
+    public List<Veiculo> listarVeiculosPaginado(int numeroPagina, int tamanhoPagina) {
+        int inicio = numeroPagina * tamanhoPagina;
+        int fim = Math.min(inicio + tamanhoPagina, veiculos.size());
+        return veiculos.subList(inicio, fim);
     }
 }
