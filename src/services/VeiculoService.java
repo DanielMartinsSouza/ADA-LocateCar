@@ -1,4 +1,4 @@
-package gerenciador;
+package services;
 
 import veiculo.Status;
 import veiculo.TipoVeiculo;
@@ -9,15 +9,11 @@ import java.util.List;
 
 import exceptions.BusinessException;
 
-public class GerenciadorVeiculo {
+public class VeiculoService {
     private final List<Veiculo> veiculos;
 
-    public GerenciadorVeiculo(List<Veiculo> veiculos) {
+    public VeiculoService(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-    }
-
-    public GerenciadorVeiculo() {
-        this.veiculos = new ArrayList<>();
     }
 
     public void cadastrarVeiculo(Veiculo novoVeiculo) {

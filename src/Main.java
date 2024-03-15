@@ -1,39 +1,41 @@
-import gerenciador.GerenciadorPessoa;
-import gerenciador.GerenciadorVeiculo;
+import controller.AluguelController;
+import controller.PessoaController;
+import controller.VeiculoController;
+import services.AluguelService;
+import services.PessoaService;
+import services.VeiculoService;
 import pessoa.Pessoa;
 import pessoa.PessoaFisica;
 import pessoa.PessoaJuridica;
+import utils.io.ScannerSingleton;
 import utils.menu.*;
 import veiculo.TipoVeiculo;
 import veiculo.Veiculo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main
-{
-    static GerenciadorPessoa gerenciadorPessoa = new GerenciadorPessoa();
-    static GerenciadorVeiculo gerenciadorVeiculo = new GerenciadorVeiculo();
+public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = ScannerSingleton.getScanner();
         int option;
-        MenuPrincipal.welcomeMessage();
+        Menu.welcomeMessage();
 
         do {
-            Menu menu = new MenuPrincipal();
-            menu.options();
+            Menu.options();
             option = sc.nextInt();
             sc.nextLine();
             Menu.clearConsole();
 
             switch (option) {
                 case 1:
-                    opcoesDoVeiculo(sc);
+                    opcoesDoVeiculo();
                     break;
                 case 2:
-                    opcoesDoCliente(sc);
+                    opcoesDoCliente();
                     break;
                 case 3:
-                    opcoesAluguel(sc);
+                    opcoesAluguel();
                     break;
                 case 4:
                     break;
@@ -46,23 +48,22 @@ public class Main
             Menu.clearConsole();
         } while (option != 4);
 
-        MenuPrincipal.exitMessage();
-        sc.close();
+        Menu.exitMessage();
+        ScannerSingleton.closeScanner();
     }
 
-    private static void opcoesAluguel(Scanner sc) {
-        Menu menu;
-        menu = new MenuAluguel();
+    private static void opcoesAluguel() {
+        Scanner sc = ScannerSingleton.getScanner();
         int opcaoAluguel;
         do {
-            menu.options();
+            MenuAluguel.options();
             opcaoAluguel = sc.nextInt();
             sc.nextLine();
             Menu.clearConsole();
 
             switch (opcaoAluguel) {
                 case 1:
-//                    TODO Alugar Veiculo
+                    AluguelController.alugarVeiculo();
                     break;
                 case 2:
 //                    TODO Devolver Veiculo
@@ -77,40 +78,21 @@ public class Main
         } while (opcaoAluguel != 3);
     }
 
-    private static void opcoesDoCliente(Scanner sc) {
-        Menu menu;
-        menu = new MenuCliente();
+    private static void opcoesDoCliente() {
+        Scanner sc = ScannerSingleton.getScanner();
         int opcaoCliente;
         do {
-            menu.options();
+            MenuCliente.options();
             opcaoCliente = sc.nextInt();
             sc.nextLine();
             Menu.clearConsole();
 
             switch (opcaoCliente) {
                 case 1:
-                    System.out.println("Digite o tipo de pessoa (FISICA, JURIDICA):");
-                    String tipoPessoa = sc.nextLine().toUpperCase();
-                    System.out.println("Digite o documento da pessoa:");
-                    String documento = sc.nextLine();
-                    System.out.println("Digite o nome da pessoa:");
-                    String nome = sc.nextLine();
-                    Pessoa novaPessoa;
-                    if (tipoPessoa.equals("FISICA")) {
-                        novaPessoa = new PessoaFisica(documento, nome);
-                    } else {
-                        novaPessoa = new PessoaJuridica(documento, nome);
-                    }
-                    gerenciadorPessoa.cadastrarPessoa(novaPessoa);
+                    PessoaController.cadastrarPessoa();
                     break;
                 case 2:
-                    System.out.println("Digite o documento da pessoa a ser alterada:");
-                    String documentoAntigo = sc.nextLine();
-                    System.out.println("Digite o novo documento da pessoa:");
-                    String novoDocumento = sc.nextLine();
-                    System.out.println("Digite o novo nome da pessoa:");
-                    String novoNome = sc.nextLine();
-                    gerenciadorPessoa.editarPessoa(documentoAntigo, novoDocumento, novoNome);
+                    PessoaController.alterarPessoa();
                     break;
                 case 3:
                     break;
@@ -122,44 +104,24 @@ public class Main
         } while (opcaoCliente != 3);
     }
 
-    private static void opcoesDoVeiculo(Scanner sc) {
-        Menu menu;
-        menu = new MenuVeiculo();
+    private static void opcoesDoVeiculo() {
+        Scanner sc = ScannerSingleton.getScanner();
         int opcaoVeiculo;
         do {
-            menu.options();
+            MenuVeiculo.options();
             opcaoVeiculo = sc.nextInt();
             sc.nextLine();
             Menu.clearConsole();
 
             switch (opcaoVeiculo) {
                 case 1:
-                    System.out.println("Digite a placa do veículo:");
-                    String placa = sc.nextLine();
-                    System.out.println("Digite o tipo do veículo (PEQUENO, MEDIO, SUV):");
-                    TipoVeiculo tipo = TipoVeiculo.valueOf(sc.nextLine().toUpperCase());
-                    Veiculo novoVeiculo = new Veiculo(placa, tipo);
-                    gerenciadorVeiculo.cadastrarVeiculo(novoVeiculo);
+                    VeiculoController.cadastrarVeiculo();
                     break;
                 case 2:
-                    System.out.println("Digite a placa do veículo a ser alterado:");
-                    String placaAntiga = sc.nextLine();
-                    System.out.println("Digite a nova placa do veículo:");
-                    String novaPlaca = sc.nextLine();
-                    System.out.println("Digite o novo tipo do veículo (PEQUENO, MEDIO, SUV):");
-                    TipoVeiculo novoTipo = TipoVeiculo.valueOf(sc.nextLine().toUpperCase());
-                    gerenciadorVeiculo.editarVeiculo(placaAntiga, novaPlaca, novoTipo);
+                    VeiculoController.alterarVeiculo();
                     break;
-
                 case 3:
-                    System.out.println("Digite a placa do veículo a ser buscado:");
-                    String placaBusca = sc.nextLine();
-                    Veiculo veiculoEncontrado = gerenciadorVeiculo.buscarVeiculo(placaBusca);
-                    if (veiculoEncontrado != null) {
-                        System.out.println("Veículo encontrado: " + veiculoEncontrado.getPlaca() + ", " + veiculoEncontrado.getTipoVeiculo());
-                    } else {
-                        System.out.println("Veículo não encontrado.");
-                    }
+                    VeiculoController.buscarVeiculo();
                     break;
                 case 4:
                     break;

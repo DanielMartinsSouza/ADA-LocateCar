@@ -1,10 +1,9 @@
 package utils.menu;
 
-public class MenuCliente implements Menu{
-    @Override
-    public void options() {
+public class MenuCliente {
+    public static void options() {
         System.out.println("""
-                Options:
+                Opções:
                 1 - Cadastrar Cliente
                 2 - Alterar Cliente
                 3 - Sair

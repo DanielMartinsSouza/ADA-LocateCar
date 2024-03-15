@@ -1,18 +1,14 @@
-package gerenciador;
+package services;
 
 import pessoa.Pessoa;
 
 import java.util.List;
 
-public class GerenciadorPessoa {
+public class PessoaService {
     private List<Pessoa> pessoas;
 
-    public GerenciadorPessoa(List<Pessoa> pessoas) {
+    public PessoaService(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
-    }
-
-    public GerenciadorPessoa() {
-
     }
 
     public void cadastrarPessoa(Pessoa novaPessoa) {

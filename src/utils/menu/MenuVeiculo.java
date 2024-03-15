@@ -1,10 +1,9 @@
 package utils.menu;
 
-public class MenuVeiculo implements Menu{
-    @Override
-    public void options() {
+public class MenuVeiculo {
+    public static void options() {
         System.out.println("""
-                Options:
+                Opções:
                 1 - Cadastrar Veiculo
                 2 - Alterar Veiculo
                 3 - Buscar Veiculo

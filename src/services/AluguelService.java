@@ -1,4 +1,4 @@
-package gerenciador;
+package services;
 
 import aluguel.Aluguel;
 import devolucao.DevolucaoAluguel;
@@ -13,16 +13,21 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class GerenciadorAluguel {
+public class AluguelService {
     private List<Aluguel> alugueis;
-    private GerenciadorVeiculo gerenciadorVeiculo;
+    private List<DevolucaoAluguel> devolucoes;
+    private VeiculoService veiculoService;
 
-    public GerenciadorAluguel(List<Aluguel> alugueis, GerenciadorVeiculo gerenciadorVeiculo) {
+    public AluguelService(
+            List<Aluguel> alugueis,
+            List<DevolucaoAluguel> devolucoes,
+            VeiculoService veiculoService) {
         this.alugueis = alugueis;
-        this.gerenciadorVeiculo = gerenciadorVeiculo;
+        this.devolucoes = devolucoes;
+        this.veiculoService = veiculoService;
     }
 
-    public void alugarVeiculo(Pessoa pessoa, Veiculo veiculo) {
+    public void alugarVeiculo(Pessoa pessoa, Veiculo veiculo) throws BusinessException {
         if (pessoa == null) {
             throw new BusinessException("A pessoa não pode ser nula.");
         }
@@ -33,13 +38,13 @@ public class GerenciadorAluguel {
             throw new BusinessException("A placa do veículo não pode ser nula ou vazia.");
         }
 
-        Status statusVeiculo = gerenciadorVeiculo.checarStatusDeVeiculo(veiculo.getPlaca());
+        Status statusVeiculo = veiculoService.checarStatusDeVeiculo(veiculo.getPlaca());
         if (statusVeiculo == null || statusVeiculo.equals(Status.ALUGADO)) {
             throw new BusinessException("O veículo já está alugado.");
         }
 
         Aluguel aluguel = new Aluguel(veiculo, pessoa, LocalDateTime.now());
-        gerenciadorVeiculo.alterarStatusDeVeiculo(veiculo, Status.ALUGADO);
+        veiculoService.alterarStatusDeVeiculo(veiculo, Status.ALUGADO);
         alugueis.add(aluguel);
     }
 
@@ -61,7 +66,7 @@ public class GerenciadorAluguel {
         long dias = calcularDiasDeAluguel(aluguel, horaDevolucao);
         double valorTotal = calcularValorTotal(aluguel, dias);
 
-        gerenciadorVeiculo.alterarStatusDeVeiculo(aluguel.getVeiculo(), Status.DISPONIVEL);
+        veiculoService.alterarStatusDeVeiculo(aluguel.getVeiculo(), Status.DISPONIVEL);
         alugueis.remove(aluguel);
 
         return new DevolucaoAluguel(aluguel, horaDevolucao, valorTotal);
