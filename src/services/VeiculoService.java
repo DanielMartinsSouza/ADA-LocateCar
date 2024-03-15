@@ -1,4 +1,4 @@
-package gerenciador;
+package services;
 
 import veiculo.Status;
 import veiculo.TipoVeiculo;
@@ -9,15 +9,11 @@ import java.util.List;
 
 import exceptions.BusinessException;
 
-public class GerenciadorVeiculo {
+public class VeiculoService {
     private final List<Veiculo> veiculos;
 
-    public GerenciadorVeiculo(List<Veiculo> veiculos) {
+    public VeiculoService(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-    }
-
-    public GerenciadorVeiculo() {
-        this.veiculos = new ArrayList<>();
     }
 
     public void cadastrarVeiculo(Veiculo novoVeiculo) {
@@ -89,9 +85,7 @@ public class GerenciadorVeiculo {
         }
     }
 
-    public List<Veiculo> listarVeiculosPaginado(int numeroPagina, int tamanhoPagina) {
-        int inicio = numeroPagina * tamanhoPagina;
-        int fim = Math.min(inicio + tamanhoPagina, veiculos.size());
-        return veiculos.subList(inicio, fim);
+    public List<Veiculo> listarVeiculos() {
+        return veiculos;
     }
 }

@@ -39,4 +39,9 @@ public class Aluguel {
     public void setHoraDeInicio(LocalDateTime horaDeInicio) {
         this.horaDeInicio = horaDeInicio;
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }
