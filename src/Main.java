@@ -1,18 +1,11 @@
 import controller.AluguelController;
 import controller.PessoaController;
 import controller.VeiculoController;
-import services.AluguelService;
 import services.PessoaService;
 import services.VeiculoService;
-import pessoa.Pessoa;
-import pessoa.PessoaFisica;
-import pessoa.PessoaJuridica;
 import utils.io.ScannerSingleton;
 import utils.menu.*;
-import veiculo.TipoVeiculo;
-import veiculo.Veiculo;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -54,6 +47,9 @@ public class Main {
 
     private static void opcoesAluguel() {
         Scanner sc = ScannerSingleton.getScanner();
+        PessoaService pessoaService = PessoaController.getPessoaService();
+        VeiculoService veiculoService = VeiculoController.getVeiculoService();
+
         int opcaoAluguel;
         do {
             MenuAluguel.options();
@@ -63,10 +59,10 @@ public class Main {
 
             switch (opcaoAluguel) {
                 case 1:
-                    AluguelController.alugarVeiculo();
+                    AluguelController.alugarVeiculo(pessoaService, veiculoService);
                     break;
                 case 2:
-//                    TODO Devolver Veiculo
+                    AluguelController.devolverVeiculo(pessoaService, veiculoService);
                     break;
                 case 3:
                     break;
@@ -82,7 +78,7 @@ public class Main {
         Scanner sc = ScannerSingleton.getScanner();
         int opcaoCliente;
         do {
-            MenuCliente.options();
+            MenuPessoa.options();
             opcaoCliente = sc.nextInt();
             sc.nextLine();
             Menu.clearConsole();

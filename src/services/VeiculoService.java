@@ -85,9 +85,7 @@ public class VeiculoService {
         }
     }
 
-    public List<Veiculo> listarVeiculosPaginado(int numeroPagina, int tamanhoPagina) {
-        int inicio = numeroPagina * tamanhoPagina;
-        int fim = Math.min(inicio + tamanhoPagina, veiculos.size());
-        return veiculos.subList(inicio, fim);
+    public List<Veiculo> listarVeiculos() {
+        return veiculos;
     }
 }

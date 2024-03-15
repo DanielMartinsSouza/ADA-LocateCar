@@ -3,6 +3,7 @@ package devolucao;
 import aluguel.Aluguel;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DevolucaoAluguel {
     private Aluguel aluguel;
@@ -37,5 +38,12 @@ public class DevolucaoAluguel {
 
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    @Override
+    public String toString() {
+        String horaFormatada = horaDeDevolucao.format(DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy"));
+        return "Horário de devolução: " + horaFormatada +
+                "\nValor total: " + valorTotal;
     }
 }

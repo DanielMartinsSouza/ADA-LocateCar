@@ -6,6 +6,7 @@ import veiculo.TipoVeiculo;
 import veiculo.Veiculo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class VeiculoController {
@@ -55,5 +56,9 @@ public class VeiculoController {
         } else {
             System.out.println("Veículo não encontrado.");
         }
+    }
+
+    public static List<Veiculo> listarVeiculos() {
+        return veiculoService.listarVeiculos();
     }
 }

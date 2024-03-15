@@ -7,6 +7,7 @@ import services.PessoaService;
 import utils.io.ScannerSingleton;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PessoaController {
@@ -54,5 +55,9 @@ public class PessoaController {
         String novoNome = sc.nextLine();
 
         pessoaService.editarPessoa(documentoAntigo, novoDocumento, novoNome);
+    }
+
+    public static List<Pessoa> listarPessoas() {
+        return pessoaService.listarPessoas();
     }
 }

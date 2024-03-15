@@ -48,6 +48,20 @@ public class AluguelService {
         alugueis.add(aluguel);
     }
 
+    public Aluguel buscarAluguel(Veiculo veiculo, Pessoa pessoa) {
+        if (veiculo == null || pessoa == null) {
+            return null;
+        }
+
+        for (Aluguel aluguel : alugueis) {
+            if (aluguel.getPessoa().equals(pessoa) && aluguel.getVeiculo().equals(veiculo)) {
+                return aluguel;
+            }
+        }
+
+        return null;
+    }
+
     private void validarEntrada(Aluguel aluguel, LocalDateTime horaDevolucao) {
         if (aluguel == null) {
             throw new BusinessException("O aluguel não pode ser nulo.");
@@ -60,7 +74,7 @@ public class AluguelService {
         }
     }
 
-    public DevolucaoAluguel devolverVeiculo(Aluguel aluguel, LocalDateTime horaDevolucao) {
+    public DevolucaoAluguel devolverVeiculo(Aluguel aluguel, LocalDateTime horaDevolucao) throws BusinessException {
         validarEntrada(aluguel, horaDevolucao);
 
         long dias = calcularDiasDeAluguel(aluguel, horaDevolucao);
@@ -68,6 +82,7 @@ public class AluguelService {
 
         veiculoService.alterarStatusDeVeiculo(aluguel.getVeiculo(), Status.DISPONIVEL);
         alugueis.remove(aluguel);
+        devolucoes.add(new DevolucaoAluguel(aluguel, horaDevolucao, valorTotal));
 
         return new DevolucaoAluguel(aluguel, horaDevolucao, valorTotal);
     }
