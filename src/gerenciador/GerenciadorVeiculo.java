@@ -10,10 +10,14 @@ import java.util.List;
 import exceptions.BusinessException;
 
 public class GerenciadorVeiculo {
-    private List<Veiculo> veiculos;
+    private final List<Veiculo> veiculos;
 
     public GerenciadorVeiculo(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
+    }
+
+    public GerenciadorVeiculo() {
+        this.veiculos = new ArrayList<>();
     }
 
     public void cadastrarVeiculo(Veiculo novoVeiculo) {

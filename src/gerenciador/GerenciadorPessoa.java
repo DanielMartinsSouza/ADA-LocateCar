@@ -11,6 +11,10 @@ public class GerenciadorPessoa {
         this.pessoas = pessoas;
     }
 
+    public GerenciadorPessoa() {
+
+    }
+
     public void cadastrarPessoa(Pessoa novaPessoa) {
         for (Pessoa pessoa : pessoas) {
             if (pessoa.getDocumento().equals(novaPessoa.getDocumento())) {

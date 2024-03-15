@@ -1,10 +1,18 @@
+import gerenciador.GerenciadorPessoa;
+import gerenciador.GerenciadorVeiculo;
+import pessoa.Pessoa;
+import pessoa.PessoaFisica;
+import pessoa.PessoaJuridica;
 import utils.menu.*;
+import veiculo.TipoVeiculo;
+import veiculo.Veiculo;
 
 import java.util.Scanner;
 
-
 public class Main
 {
+    static GerenciadorPessoa gerenciadorPessoa = new GerenciadorPessoa();
+    static GerenciadorVeiculo gerenciadorVeiculo = new GerenciadorVeiculo();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int option;
@@ -81,10 +89,28 @@ public class Main
 
             switch (opcaoCliente) {
                 case 1:
-//                    TODO Cadastrar Cliente
+                    System.out.println("Digite o tipo de pessoa (FISICA, JURIDICA):");
+                    String tipoPessoa = sc.nextLine().toUpperCase();
+                    System.out.println("Digite o documento da pessoa:");
+                    String documento = sc.nextLine();
+                    System.out.println("Digite o nome da pessoa:");
+                    String nome = sc.nextLine();
+                    Pessoa novaPessoa;
+                    if (tipoPessoa.equals("FISICA")) {
+                        novaPessoa = new PessoaFisica(documento, nome);
+                    } else {
+                        novaPessoa = new PessoaJuridica(documento, nome);
+                    }
+                    gerenciadorPessoa.cadastrarPessoa(novaPessoa);
                     break;
                 case 2:
-//                    TODO Alterar Cliente
+                    System.out.println("Digite o documento da pessoa a ser alterada:");
+                    String documentoAntigo = sc.nextLine();
+                    System.out.println("Digite o novo documento da pessoa:");
+                    String novoDocumento = sc.nextLine();
+                    System.out.println("Digite o novo nome da pessoa:");
+                    String novoNome = sc.nextLine();
+                    gerenciadorPessoa.editarPessoa(documentoAntigo, novoDocumento, novoNome);
                     break;
                 case 3:
                     break;
@@ -94,7 +120,6 @@ public class Main
                     break;
             }
         } while (opcaoCliente != 3);
-        return;
     }
 
     private static void opcoesDoVeiculo(Scanner sc) {
@@ -109,13 +134,32 @@ public class Main
 
             switch (opcaoVeiculo) {
                 case 1:
-//                    TODO Cadastrar Veiculo
+                    System.out.println("Digite a placa do veículo:");
+                    String placa = sc.nextLine();
+                    System.out.println("Digite o tipo do veículo (PEQUENO, MEDIO, SUV):");
+                    TipoVeiculo tipo = TipoVeiculo.valueOf(sc.nextLine().toUpperCase());
+                    Veiculo novoVeiculo = new Veiculo(placa, tipo);
+                    gerenciadorVeiculo.cadastrarVeiculo(novoVeiculo);
                     break;
                 case 2:
-//                    TODO Alterar Veiculo
+                    System.out.println("Digite a placa do veículo a ser alterado:");
+                    String placaAntiga = sc.nextLine();
+                    System.out.println("Digite a nova placa do veículo:");
+                    String novaPlaca = sc.nextLine();
+                    System.out.println("Digite o novo tipo do veículo (PEQUENO, MEDIO, SUV):");
+                    TipoVeiculo novoTipo = TipoVeiculo.valueOf(sc.nextLine().toUpperCase());
+                    gerenciadorVeiculo.editarVeiculo(placaAntiga, novaPlaca, novoTipo);
                     break;
+
                 case 3:
-//                    TODO Buscar Veiculo
+                    System.out.println("Digite a placa do veículo a ser buscado:");
+                    String placaBusca = sc.nextLine();
+                    Veiculo veiculoEncontrado = gerenciadorVeiculo.buscarVeiculo(placaBusca);
+                    if (veiculoEncontrado != null) {
+                        System.out.println("Veículo encontrado: " + veiculoEncontrado.getPlaca() + ", " + veiculoEncontrado.getTipoVeiculo());
+                    } else {
+                        System.out.println("Veículo não encontrado.");
+                    }
                     break;
                 case 4:
                     break;
